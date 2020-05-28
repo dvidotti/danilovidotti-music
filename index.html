@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="icon" href="assets/images/favicon.jpg" />
+  <title>Danilo Vidotti</title>
+  <link rel="stylesheet" href="vendor/bower_components/normalize-css/normalize.css">
+  <link rel="stylesheet" href="assets/stylesheets/fonts/DINPro/font.css">
+  <link rel="stylesheet" href="assets/stylesheets/style.css">
+  <link rel="stylesheet" href="assets/stylesheets/mobile.css">
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-70517712-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+</head>
+<body ng-app="danilo" class="bg-cover">
+  <div class="dnl-container" ng-controller="IndexController as vm" ng-class="{'showVideo': vm.videoShow}">
+    <div class="dnl-top">
+      <div class="dnl-tabs">
+        <nav class="dnl-tab-nav" ng-class="{'open': vm.openMenu}">
+          <button class="dnl-btn-toggle bg-cover" ng-click="vm.toggleMenu()"></button>
+          <ul>
+            <li><a href="#" ng-click="vm.tab = 1" ng-class="{'active': vm.tab == 1}">{{ 'ABOUT' | translate }}</a></li>
+            <li><a href="#" ng-click="vm.tab = 2" ng-class="{'active': vm.tab == 2}">{{ 'MUSIC' | translate }}</a></li>
+            <li><a href="#" ng-click="vm.tab = 3" ng-class="{'active': vm.tab == 3}">{{ 'CONTACT' | translate }}</a></li>
+          </ul>
+          <ul class="dnl-tab-nav-micro">
+            <li><a href="#" ng-click="vm.setLang('pt-BR')" ng-class="{'active': vm.lang == 'pt-BR'}">PT</a></li>
+            <li><a href="#" ng-click="vm.setLang('en')" ng-class="{'active': vm.lang == 'en'}">EN</a></li>
+          </ul>
+          <!-- <button class="dnl-btn-close bg-cover" ng-click="vm.menuClose()"></button> -->
+        </nav>
+        <div class="dnl-content" ng-class="{'open': vm.tab !== null}">
+          <div class="dnl-scroll-commands" ng-show="vm.tab == 1">
+            <button
+              class="dnl-scroll-up"
+              ng-mousedown="vm.scroll('profile', -1)"
+              ng-mouseup="vm.stopScroll()"
+              ng-class="vm.scrollUpClass('profile')"
+            ></button>
+            <button
+              class="dnl-scroll-down"
+              ng-mousedown="vm.scroll('profile', 1)"
+              ng-mouseup="vm.stopScroll()"
+              ng-class="vm.scrollDownClass('profile')"
+            ></button>
+          </div>
+          <div class="dnl-content-tabs" ng-class="{'dnl-content-restrict' : vm.tab == 1}">
+            <section id="profile" ng-class="{'active': vm.tab == 1}">
+              <p>{{ 'PROFILE' | translate }}</p>
+            </section><!-- /#profile -->
+            <section id="disks" ng-class="{'active': vm.tab == 2}">
+              <ul class="dnl-media-list">
+                <li class="dnl-media-list-item">
+                  <a href="#">
+                    <img src="assets/images/covers/1.jpg" alt="Capa do disco Desapego">
+                    <div>
+                      <a href="web/downloads/EPDESAPEGO_DANILOVIDOTTI.zip" class="dnl-media-list-header">FREE DOWNLOAD</a>
+                      <h2>EP DESAPEGO</h2>
+                      <small class="dnl-default-text">SÃO PAULO 2015</small>
+                      <strong>{{ 'RELEASE' | translate }}</strong>
+                    </div>
+                  </a>
+                </li>
+                <li class="dnl-media-list-item">
+                  <a href="#">
+                    <img src="assets/images/covers/2.jpg" alt="Capa do disco Desapego">
+                    <div>
+                      <a href="web/downloads/PRIMEIROPRIMERA_DANILOVIDOTTI.zip" class="dnl-media-list-header">FREE DOWNLOAD</a>
+                      <h2>CD PRIMEIRO PRIMEIRA</h2>
+                      <small class="dnl-default-text">BARCELONA 2009</small>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </section><!-- /#disks -->
+            <section id="contact" ng-class="{'active': vm.tab == 3}">
+              <h2 class="dnl-media-list-header">SHOWS</h2>
+              <span class="dnl-default-text">
+                T. +55 11 3280 2191
+                SHOWS@DANILOVIDOTTI.COM.BR
+              </span>
+              <h2 class="dnl-media-list-header">{{ 'PRESS' | translate }}</h2>
+              <span class="dnl-default-text">
+                PRESS@DANILOVIDOTTI.COM.BR
+              </span>
+              <form ng-submit="vm.sendForm()" name="contactForm" novalidate class="dnl-form" ng-class="{'invalid': vm.showError, 'success': vm.showSuccess}">
+                <input type="text" placeholder="{{ 'NAME' | translate }}" required ng-model="name" name="name">
+                <input type="email" placeholder="{{ 'EMAIL' | translate }}" required ng-model="email" name="email">
+                <textarea name="message" ng-model="message" rows="4" placeholder="{{ 'MESSAGE' | translate }}" required></textarea>
+                <button type="submit">{{ 'SEND' | translate }}</button>
+                <span class="dnl-form-error">
+                  {{ 'FORM_ERROR_FIRST_LINE' | translate }}<br>
+                  {{ 'FORM_ERROR_SECOND_LINE' | translate }}
+                </span>
+                <span class="dnl-form-success">
+                  {{ 'FORM_SUCCESS_FIRST_LINE' | translate }}<br>
+                  {{ 'FORM_SUCCESS_SECOND_LINE' | translate }}
+                </span>
+              </form>
+              <span class="dnl-lateral-title">
+                {{ 'FORM_CALL' | translate }}
+              </span>
+            </section><!-- /#contact -->
+          </div><!-- /.dnl-content-tabs -->
+        </div>
+      </div>
+      <img src="assets/images/logo.png" alt="Logo do Danilo Vidotti" class="dnl-logo">
+    </div><!-- /.dnl-top -->
+    <button class="dnl-play" ng-show="vm.tab == null" ng-click="vm.showVideo()"></button>
+    <div class="dnl-footer">
+      <nav class="dnl-inline-green-nav">
+        <ul>
+          <li><a target="_blank" href="https://soundcloud.com/danilovidotti">Soundcloud</a></li>
+          <li><a target="_blank" href="https://www.youtube.com/channel/UC4u7s8vYgPmWkcpfbSpl4PQ">Youtube</a></li>
+          <li><a target="_blank" href="https://open.spotify.com/album/3526ZxzzO1TvuSUE41pNyj">Spotify</a></li>
+          <li><a target="_blank" href="https://www.facebook.com/Danilo-Vidotti-1519406531616263/?fref=ts">Facebook</a></li>
+          <li><a target="_blank" href="https://instagram.com/vidottidanilo/">Instagram</a></li>
+          <li><a target="_blank" href="https://twitter.com/danilovidotti">Twitter</a></li>
+        </ul>
+      </nav><!-- /.dnl-nav -->
+      <a href="web/downloads/EPDESAPEGO_DANILOVIDOTTI.zip" class="dnl-link-white">
+        Free Download<br>
+        Ep Desapego
+      </a>
+    </div><!-- /.dnl-footer -->
+    <div class="dnl-player">
+      <button class="dnl-player-close" ng-click="vm.pauseVideo()">x</button>
+      <video controls id="video">
+        <source src="assets/videos/video.mp4"></source>
+      </video>
+    </div>
+  </div><!-- /.dnl-container -->
+  <div class="dnl-container-mobile">
+    <img src="assets/images/mobile/top.png" alt="">
+    <div class="dnl-mb-bottom">
+      <a href="web/downloads/EPDESAPEGO_DANILOVIDOTTI.zip">
+        <img src="assets/images/mobile/bottom.png" alt="" class="download-img">
+      </a>
+      <div class="store-img">
+        <a href="https://itunes.apple.com/us/app/winzip-leading-zip-unzip-cloud/id500637987?mt=8">
+          <img src="assets/images/mobile/apple.png" alt="">
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.winzip.android&hl=pt_BR">
+          <img src="assets/images/mobile/google.png" alt="">
+        </a>
+      </div>
+    </div>
+  </div><!-- /.dnl-container -->
+  <script src="vendor/bower_components/angular/angular.min.js"></script>
+  <script src="vendor/bower_components/angular-translate/angular-translate.min.js"></script>
+  <script src="assets/javascripts/app.js"></script>
+  <script src="assets/javascripts/config/lang/config.js"></script>
+  <script src="assets/javascripts/config/lang/pt-br.js"></script>
+  <script src="assets/javascripts/config/lang/en.js"></script>
+  <script src="assets/javascripts/controllers/IndexController.js"></script>
+</body>
+</html>
